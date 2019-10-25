@@ -71,12 +71,32 @@ addSaxon(saxon){
     this.saxonArmy.push(saxon);
 };
 vikingAttack(){
-
+    let randomViking = this.vikingArmy[Math.floor(Math.random()*this.vikingArmy.length)];
+    let randomSaxon = this.saxonArmy[Math.floor(Math.random()*this.saxonArmy.length)];
+    let damageSaxon = randomSaxon.receiveDamage(randomViking.strength);
+    if (randomSaxon.health <= 0){
+        this.saxonArmy.splice(randomSaxon, 1);
+    }
+    return damageSaxon;
 };
 saxonAttack(){
-
+    let randomSaxon = this.saxonArmy[Math.floor(Math.random()*this.saxonArmy.length)];
+    let randomViking = this.vikingArmy[Math.floor(Math.random()*this.vikingArmy.length)];
+    let damageViking = randomViking.receiveDamage(randomSaxon.strength);
+    if (randomViking.health <= 0){
+        this.vikingArmy.splice(randomViking, 1);
+    }
+    return damageViking;
 };
+
 showStatus(){
-
+    if (this.vikingAttack > this.saxonAttack){
+        return `Vikings have won the war of the century!`;
+    } else if (this.vikingAttack === this.saxonAttack){
+        return `Vikings and Saxons are still in the thick of battle.`;
+    } else {
+        return `Saxons have fought for their lives and survive another day...`;
+    }
 };
+
 }
